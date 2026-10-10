@@ -18,16 +18,62 @@ evidence → history all run. **175 unit/integration tests pass**, and a
 
 ## Run it
 
-```bash
-python -m venv .venv && . .venv/bin/activate
-pip install -r requirements.txt
-cd frontend && npm install && cd ..
-cp .env.example .env          # works as-is; add GEMINI_API_KEY for real vision
+**Node.js is not required to run the app.** The compiled UI is committed under
+`frontend/dist` and served by the backend, so you need Python only.
 
-./scripts/dev.sh              # receiver :9000, backend :8000, UI :5173
+### Windows
+
+Double-click **`scripts\run.bat`**, or from `cmd`:
+
+```bat
+cd /d "%USERPROFILE%\hacklanta-project"
+scripts\run.bat
 ```
 
-Open <http://localhost:5173>, go to **Rule setup**, and paste:
+It creates the virtual environment, installs dependencies, copies `.env`, and
+starts the app. Then open <http://localhost:8000>.
+
+If you get `'python' is not recognized`, install Python from
+<https://www.python.org/downloads/> and tick **"Add python.exe to PATH"**
+during setup.
+
+### macOS / Linux
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt
+cp .env.example .env            # works as-is; add GEMINI_API_KEY for real vision
+cd backend && ../.venv/bin/python -m uvicorn app.main:app --port 8000
+```
+
+Then open <http://localhost:8000>.
+
+To exercise the webhook action, run the test receiver in a second terminal:
+
+```bash
+cd backend && ../.venv/bin/python -m uvicorn app.receiver:app --port 9000
+```
+
+### Developing the frontend
+
+Only this needs Node. `scripts/dev.sh` runs all three processes with Vite's
+dev server and hot reload on <http://localhost:5173>:
+
+```bash
+cd frontend && npm install && cd ..
+./scripts/dev.sh
+```
+
+After changing frontend code, rebuild the committed bundle so the
+Python-only path stays current:
+
+```bash
+cd frontend && npm run build
+```
+
+---
+
+Once it is running, go to **Rule setup** and paste:
 
 > If the supply tray stays empty for 10 seconds, create a restocking task.
 

@@ -21,7 +21,8 @@ __pycache__/
 
 # Node
 node_modules/
-frontend/dist/
+# frontend/dist is committed deliberately so the app runs with Python alone.
+# Rebuild with: cd frontend && npm run build
 
 # TypeScript incremental build artifact
 *.tsbuildinfo

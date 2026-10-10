@@ -17,6 +17,7 @@ import cv2
 from fastapi import FastAPI, HTTPException, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .actions import Dispatcher
@@ -531,3 +532,21 @@ def history_query(req: HistoryQueryRequest) -> dict[str, Any]:
             SUPPORTED_EXAMPLES if not result.supported else []
         ),
     }
+
+
+# --------------------------------------------------------------------------
+# Built frontend
+# --------------------------------------------------------------------------
+
+# Serving the compiled UI from the backend means a demo machine needs Python
+# only -- no Node, no second process, no port proxying. `npm run dev` is still
+# the right loop while developing the frontend; this is for running it.
+#
+# Mounted last on purpose: FastAPI matches in declaration order, so every
+# /api/... route above wins before this catch-all sees the request.
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+if FRONTEND_DIST.is_dir():
+    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="ui")
+    log.info("serving built UI from %s", FRONTEND_DIST)
+else:
+    log.info("no built UI at %s; run `npm run build` in frontend/", FRONTEND_DIST)
