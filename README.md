@@ -37,14 +37,25 @@ If you get `'python' is not recognized`, install Python from
 <https://www.python.org/downloads/> and tick **"Add python.exe to PATH"**
 during setup.
 
+**If the install fails with `cargo`, `maturin` or "failed building wheel":**
+pip could not find a prebuilt wheel for your Python version and tried to
+compile `pydantic-core` and `pillow` from source, which needs a Rust
+toolchain. Check `python --version`; install **Python 3.12**, delete the
+`.venv` folder, and run the script again. `requirements.txt` uses version
+ranges precisely so pip can pick wheels that match your interpreter — pinned
+versions are in `requirements-lock.txt` if you want an exact reproduction.
+
 ### macOS / Linux
 
 ```bash
 python -m venv .venv
-.venv/bin/pip install -r requirements.txt
+.venv/bin/pip install --prefer-binary -r requirements.txt
 cp .env.example .env            # works as-is; add GEMINI_API_KEY for real vision
 cd backend && ../.venv/bin/python -m uvicorn app.main:app --port 8000
 ```
+
+Needs **Python 3.10+**. `--prefer-binary` keeps pip on prebuilt wheels rather
+than compiling `pydantic-core` and `pillow` from source.
 
 Then open <http://localhost:8000>.
 
