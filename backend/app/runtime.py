@@ -20,9 +20,9 @@ from .db import Database
 from .engine import on_camera_unhealthy, restore_after_restart, transition
 from .evidence import BufferedFrame, EvidenceStore, RollingBuffer
 from .schemas import (
+    ActionStatus,
     ActionType,
     CameraHealth,
-    CreateTaskAction,
     Effect,
     EffectKind,
     Episode,
@@ -30,7 +30,6 @@ from .schemas import (
     Event,
     EventStatus,
     Observation,
-    Task,
     Workflow,
     utcnow,
 )
@@ -146,16 +145,13 @@ class WorkflowRuntime:
 
         action_type = ActionType(self.workflow.action.type)
         action = build_action_record(event.id, action_type)
-        task = None
-        if isinstance(self.workflow.action, CreateTaskAction):
-            task = Task(
-                title=self.workflow.action.title,
-                workflow_id=self.workflow.id,
-                event_id=event.id,
-                evidence_path=event.snapshot_path,
-            )
 
-        committed = self.db.commit_event_with_action(event, action, task=task)
+        # Only the event and its *pending* action commit together. Carrying out
+        # the action -- creating the task, delivering the webhook -- is the
+        # dispatcher's job, so there is exactly one place that performs an
+        # effect and exactly one place that records its receipt. If this
+        # process dies before dispatch, the pending row is the recovery point.
+        committed = self.db.commit_event_with_action(event, action)
         if not committed:
             # The episode already produced an event. Normal after a crash-retry.
             log.info("episode %s already has an event; not firing again", effect.episode_id)
@@ -163,11 +159,16 @@ class WorkflowRuntime:
 
         self._pending_clips[event.id] = obs.captured_monotonic
 
-        await self.dispatcher.execute(
+        done = await self.dispatcher.execute(
             action, self.workflow.action, workflow_id=self.workflow.id
         )
         return IngestResult(
-            effect=effect, event_id=event.id, created_task=task is not None
+            effect=effect,
+            event_id=event.id,
+            created_task=(
+                action_type == ActionType.CREATE_TASK
+                and done.status == ActionStatus.SUCCEEDED
+            ),
         )
 
     # -- evidence ---------------------------------------------------------

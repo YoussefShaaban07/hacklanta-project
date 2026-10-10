@@ -1,15 +1,17 @@
 # Secrets
 .env
 
-# Local runtime data: database, evidence images and clips, footage
+# Local runtime data: database, captured evidence, footage
 data/
-*.db
-*.db-wal
-*.db-shm
+
+# Generated media is ignored by default; the committed fixtures and the
+# documentation screenshots are the deliberate exceptions.
 *.mp4
 *.jpg
 *.jpeg
+!fixtures/*.mp4
 !docs/**/*.jpg
+!docs/**/*.png
 
 # Python
 .venv/
@@ -20,3 +22,6 @@ __pycache__/
 # Node
 node_modules/
 frontend/dist/
+
+# TypeScript incremental build artifact
+*.tsbuildinfo
