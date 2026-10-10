@@ -1,0 +1,12 @@
+{
+  "id": "evt_3f9b1c7d2a80",
+  "workflow_id": "wf_001",
+  "workflow_version": 1,
+  "episode_id": "ep_55aa90c31b7e",
+  "first_positive_at": "2026-10-09T14:30:00Z",
+  "triggered_at": "2026-10-09T14:30:10Z",
+  "status": "active",
+  "snapshot_path": "data/evidence/evt_3f9b1c7d2a80.jpg",
+  "clip_path": "data/evidence/evt_3f9b1c7d2a80.mp4",
+  "explanation": "Tray empty across 3 samples spanning 10.0s."
+}

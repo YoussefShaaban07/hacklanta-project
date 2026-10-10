@@ -1,0 +1,12 @@
+{
+  "id": "act_9d2e4b6a1c03",
+  "event_id": "evt_3f9b1c7d2a80",
+  "type": "create_task",
+  "status": "pending",
+  "attempts": 1,
+  "last_error": null,
+  "receipt": "task:task_11bb22cc33dd",
+  "idempotency_key": "8f14e45fceea167a5a36dedd4bea2543",
+  "created_at": "2026-10-09T14:30:10Z",
+  "updated_at": "2026-10-09T14:30:10.120000Z"
+}

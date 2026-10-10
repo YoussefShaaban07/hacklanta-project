@@ -1,0 +1,15 @@
+{
+  "id": "obs_7c1d9a2b4e55",
+  "workflow_id": "wf_001",
+  "workflow_version": 1,
+  "camera_id": "cam_01",
+  "frame_id": 142,
+  "captured_at_utc": "2026-10-09T14:30:10Z",
+  "processed_at_utc": "2026-10-09T14:30:10.840000Z",
+  "captured_monotonic": 48220.0,
+  "result": "met",
+  "explanation": "The tray in the region is bare; no bottles are visible.",
+  "model_id": "gemini-vision-placeholder",
+  "inference_ms": 812,
+  "evidence_path": "data/evidence/obs_7c1d9a2b4e55.jpg"
+}

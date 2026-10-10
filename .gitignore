@@ -1,0 +1,22 @@
+# Secrets
+.env
+
+# Local runtime data: database, evidence images and clips, footage
+data/
+*.db
+*.db-wal
+*.db-shm
+*.mp4
+*.jpg
+*.jpeg
+!docs/**/*.jpg
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/dist/

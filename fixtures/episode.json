@@ -1,0 +1,13 @@
+{
+  "id": "ep_55aa90c31b7e",
+  "workflow_id": "wf_001",
+  "workflow_version": 1,
+  "state": "ACTIVE",
+  "first_positive_monotonic": 48210.0,
+  "first_positive_at_utc": "2026-10-09T14:30:00Z",
+  "last_positive_monotonic": 48220.0,
+  "positive_samples": 3,
+  "clear_streak": 0,
+  "condition_unverified": false,
+  "last_frame_id": 142
+}

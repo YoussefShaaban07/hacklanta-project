@@ -1,0 +1,24 @@
+{
+  "id": "wf_001",
+  "version": 1,
+  "camera_id": "cam_01",
+  "condition_type": "region_empty",
+  "target_description": "supply tray contains no bottles",
+  "roi": {
+    "x": 0.1,
+    "y": 0.2,
+    "w": 0.5,
+    "h": 0.4
+  },
+  "duration_seconds": 10.0,
+  "min_samples": 3,
+  "max_gap_seconds": 5.0,
+  "clear_samples": 3,
+  "action": {
+    "type": "create_task",
+    "title": "Restock the supply tray"
+  },
+  "enabled": true,
+  "reference_image_path": null,
+  "preview_validated": false
+}

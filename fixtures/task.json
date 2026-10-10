@@ -1,0 +1,9 @@
+{
+  "id": "task_11bb22cc33dd",
+  "title": "Restock the supply tray",
+  "workflow_id": "wf_001",
+  "event_id": "evt_3f9b1c7d2a80",
+  "created_at": "2026-10-09T14:30:10Z",
+  "completed": false,
+  "evidence_path": "data/evidence/evt_3f9b1c7d2a80.jpg"
+}
