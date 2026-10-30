@@ -1,5 +1,7 @@
 # hacklanta-project
 
+> **Hacklanta 2026, 2nd place.** This is my early prototype of the camera-to-workflow agent. Our 4-person team's final submission, **Vigil**, lives at [Hossam-Ismail/vigil](https://github.com/Hossam-Ismail/vigil); we built it together on a shared laptop, so its commits sit under one teammate's account.
+
 A camera-to-workflow agent. Point a camera at something, describe a condition
 in plain English, review the compiled rule, and get a task or webhook with
 evidence when the condition actually holds.
